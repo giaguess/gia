@@ -14,7 +14,17 @@ interface Message {
 const WEBHOOK_URL = 'https://gwebhook.guesstech.com.br/webhook/gia';
 
 // Generates a unique session ID per browser tab to maintain conversation context
-const SESSION_ID = crypto.randomUUID();
+const getSessionId = (): string => {
+  const STORAGE_KEY = 'gia_session_id';
+  let id = sessionStorage.getItem(STORAGE_KEY);
+  if (!id) {
+    id = crypto.randomUUID();
+    sessionStorage.setItem(STORAGE_KEY, id);
+  }
+  return id;
+};
+
+const SESSION_ID = getSessionId();
 // ─────────────────────────────────────────────────────────────────────────────
 
 const formatMessageText = (text: string) => {
