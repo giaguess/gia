@@ -12,6 +12,7 @@ interface Message {
 
 // ─── n8n Webhook Configuration ───────────────────────────────────────────────
 const WEBHOOK_URL = 'https://gwebhook.guesstech.com.br/webhook/gia';
+const WEBHOOK_AUTH_KEY = '%_GLs0?ahxXc9!0_xzfMLe?f0G#NZ9r%';
 
 // Generates a unique session ID per browser tab to maintain conversation context
 const SESSION_ID = crypto.randomUUID();
@@ -158,7 +159,10 @@ export default function ChatWidget() {
     try {
       const response = await fetch(WEBHOOK_URL, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'key': WEBHOOK_AUTH_KEY,
+        },
         body: JSON.stringify(requestBody),
       });
 
